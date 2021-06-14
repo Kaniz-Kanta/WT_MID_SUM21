@@ -4,7 +4,14 @@
 	$imageWidth = "80px"; 
 	$imageHeight = "80px";
 ?>
-<img src="aiub_logo.png" width="<?php $imageWidth?>" height="<?php $imageHight?>" />
-<h1>American International <br> University -<span style="background-color:"<?php $backColor?>";color:"<?php $fontColor?>"">
-Bangladesh</span></h1>
-
+<table>
+	<tr>
+		<td>
+	        <img src="aiub_logo.png" width="<?php echo $imageWidth;?>" height="<?php echo $imageHight;?>" />
+		</td>	
+		<td>
+			<h2>American International <br> University -<span style="background-color:<?php echo $backColor;?>;color:<?php echo $fontColor;?>">
+            Bangladesh</span></h2>
+		</td>
+	</tr>
+</table>
