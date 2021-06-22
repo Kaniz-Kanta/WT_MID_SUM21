@@ -60,10 +60,15 @@
 			$hasError = true;
 			$err_name = "Name must be greater than 2 characters";
 		}
-		else
+		elseif (is_numeric($_POST["name"]))
 		{
+			$hasError = true;
+			$err_name = "Name can't be numeric!!";
+		}
+		else{
 			$name = $_POST["name"];
 		}
+		
 		if(!isset($_POST["uname"])){
 			$hasError=true;
 			$err_uname="UserName Required";
@@ -71,6 +76,10 @@
 		elseif (strlen($_POST["uname"]) <6){
 			$hasError = true;
 			$err_uname = "UserName must be greater than 6 characters";
+		}
+		elseif (strpos($_POST["uname"]," ")){
+			$hasError = true;
+			$err_uname = "UserName can't take space!!!";
 		}
 		else
 		{
@@ -80,9 +89,17 @@
 			$hasError=true;
 			$err_pass="Password Required!!";
 		}
-		elseif (strlen($_POST["ConfirmPass"]) <8 and !strpos("ConfirmPass","#") and !strpos("ConfirmPass","?") and !ctype_upper("ConfirmPass") and !ctype_lower("ConfirmPass")){
+		elseif (strlen($_POST["pass"]) <8 ){
 			$hasError = true;
-			$err_pass = "Password must have atleast 8 characters or give a right input!!";
+			$err_pass = "Password must have atleast 8 characters!!";
+		}
+		elseif (!strpos($_POST["pass"],"#") && !strpos($_POST["pass"],"?")){
+			$hasError = true;
+			$err_pass = "Password must have atleast 1 special characters(# or ?)!!";
+		}
+		elseif (!ctype_upper($_POST["pass"]) && !ctype_lower($_POST["pass"])){
+			$hasError = true;
+			$err_pass = "Password must have Combination of lower and upper class!!";
 		}
 		else
 		{
@@ -92,9 +109,17 @@
 			$hasError=true;
 			$err_ConfirmPass="Confirm Password Required!!";
 		}
-		elseif (strlen($_POST["ConfirmPass"]) <8 and !strpos("ConfirmPass","#") and !strpos("ConfirmPass","?") and !ctype_upper("ConfirmPass") and !ctype_lower("ConfirmPass")){
+		elseif (strlen($_POST["ConfirmPass"]) <8 ){
 			$hasError = true;
-			$err_ConfirmPass = "Password must have atleast 8 characters or give a right input!!";
+			$err_pass = "Confirm Password must have atleast 8 characters!!";
+		}
+		elseif (!strpos($_POST["ConfirmPass"],"#") && !strpos($_POST["ConfirmPass"],"?")){
+			$hasError = true;
+			$err_pass = "Confirm Password must have atleast 1 special characters(# or ?)!!";
+		}
+		elseif (!ctype_upper($_POST["ConfirmPass"]) && !ctype_lower($_POST["ConfirmPass"])){
+			$hasError = true;
+			$err_pass = "Confirm Password must have Combination of lower and upper class!!";
 		}
 		else
 		{
@@ -104,12 +129,12 @@
 			$hasError = true;
 			$err_email = "Email Required!!!";
 		}
-		elseif(!strpos("email","@") and !strpos("email",".")){
-			$hasError = true;
-			$err_email = "please use an @. !!!";	
+		elseif(strpos($_POST["email"],"@.")){
+			$email = $_POST["email"];	
 		}
 		else{
-			$email = $_POST["email"];
+			$hasError = true;
+			$err_email = "please use an @. !!!";
 		}
 		
 		if(!isset($_POST["gender"])){
@@ -124,23 +149,23 @@
 			$hasError = true;
 			$err_code = "Code Required!!!";
 		}
-		elseif(!is_numeric("code")){
-			$hasError = true;
-			$err_phnumber = "Please enter a numeric value!!!";
+		elseif(is_numeric($_POST["code"])){
+			$code = $_POST["code"];
 		}
 		else{
-			$code = $_POST["code"];
+			$hasError = true;
+			$err_code  = "Please enter a numeric value!!!";
 		}
 		if(!isset($_POST["number"])){
 			$hasError = true;
 			$err_number = "number Required!!!";
 		}
-		elseif(!is_numeric("number")){
-			$hasError = true;
-			$err_phnumber = "Please enter a numeric value!!!";
+		elseif(is_numeric($_POST["number"])){
+			$number = $_POST["number"];
 		}
 		else{
-			$number = $_POST["number"];
+			$hasError = true;
+			$err_number = "Please enter a numeric value!!!";
 		}
 		if(!isset($_POST["streetAddress"])){
 			$hasError = true;
@@ -271,7 +296,7 @@
 					<td>:
 					<input name="code" type="text" value="<?php echo $code;?>" placeholder="Code">-<input name="number" type="text" value="<?php echo $number;?>" placeholder="Number">
 					<br>
-					<span><?php echo $err_phNumber;?></span>
+					<span><?php echo $err_number;?></span>
 					</td>
 					
 				</tr>
